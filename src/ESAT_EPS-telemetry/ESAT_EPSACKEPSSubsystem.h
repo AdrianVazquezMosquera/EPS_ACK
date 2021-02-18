@@ -35,6 +35,8 @@ class ESAT_EPSACKEPSSubsystemClass: public ESAT_CCSDSTelemetryPacketContents
     // Return true when a new telemetry packet is available;
     // otherwise return false.
     boolean available();
+    boolean makeAvaliable(bool isAvaliable);
+    bool activated;
 
     // Return the packet identifier of EPS housekeeping telemetry.
     byte packetIdentifier()

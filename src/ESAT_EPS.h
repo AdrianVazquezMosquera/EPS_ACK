@@ -95,6 +95,10 @@ class ESAT_EPSClass
     // - Update the brightness of the heartbeat LED.
     void update();
 
+    //TEMPORAL
+    void disableACK();
+ 
+
     // Send a telemetry packet.
     void writeTelemetry(ESAT_CCSDSPacket& packet);
 
@@ -320,6 +324,7 @@ class ESAT_EPSClass
 
     // Update the lists of pending telemetry.
     void updatePendingTelemetryLists();
+
 };
 
 // Global instance of the EPS library.

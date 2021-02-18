@@ -31,19 +31,30 @@
 #include "ESAT_EPS-telecommands/ESAT_EPSFixedModeTelecommand.h"
 
 
-boolean ESAT_EPSACKEPSSubsystemClass::available()
+boolean ESAT_EPSACKEPSSubsystemClass::makeAvaliable(bool isAvaliable)
 {
-  // This telemetry packet is always available.
-  return true;
+  return activated = isAvaliable;
 }
 
-ESAT_CCSDSSecondaryHeader ESAT_EPSACKEPSSubsystemClass::saveSecondaryHeader(ESAT_CCSDSPacket& packet)
+boolean ESAT_EPSACKEPSSubsystemClass::available()
+{
+  if (activated == true)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+ESAT_CCSDSSecondaryHeader ESAT_EPSACKEPSSubsystemClass::saveSecondaryHeader(ESAT_CCSDSPacket &packet)
 {
   ESAT_CCSDSSecondaryHeader datum = packet.readSecondaryHeader();
   return datum;
 }
 
-boolean ESAT_EPSACKEPSSubsystemClass::handlerIsCompatibleWithPacket(ESAT_CCSDSTelecommandPacketHandler& handler,
+boolean ESAT_EPSACKEPSSubsystemClass::handlerIsCompatibleWithPacket(ESAT_CCSDSTelecommandPacketHandler &handler,
                                                                     ESAT_CCSDSSecondaryHeader secondaryHeader)
 {
   if (handler.packetIdentifier() == secondaryHeader.packetIdentifier)
@@ -56,16 +67,15 @@ boolean ESAT_EPSACKEPSSubsystemClass::handlerIsCompatibleWithPacket(ESAT_CCSDSTe
   }
 }
 
-
-boolean ESAT_EPSACKEPSSubsystemClass::fillUserData(ESAT_CCSDSPacket& packet)
+boolean ESAT_EPSACKEPSSubsystemClass::fillUserData(ESAT_CCSDSPacket &packet)
 {
   // We read some error flags and we must reset them after use.
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSDisableTelemetryTelecommand, datum));  
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSEnableTelemetryTelecommand, datum));  
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSFixedModeTelecommand, datum));  
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSMaximumPowerPointTrackingModeTelecommand, datum));  
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSetTimeTelecommand, datum));  
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSweepModeTelecommand, datum));  
+  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSDisableTelemetryTelecommand, datum));
+  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSEnableTelemetryTelecommand, datum));
+  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSFixedModeTelecommand, datum));
+  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSMaximumPowerPointTrackingModeTelecommand, datum));
+  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSetTimeTelecommand, datum));
+  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSweepModeTelecommand, datum));
   packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSwitch3V3LineTelecommand, datum));
   packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSwitch5VLineTelecommand, datum));
   return true;
