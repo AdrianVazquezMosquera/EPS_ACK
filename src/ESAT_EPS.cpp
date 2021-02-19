@@ -125,10 +125,11 @@ void ESAT_EPSClass::handleTelecommand(ESAT_CCSDSPacket &packet)
   // telecommand packet dispatcher.
   (void)telecommandPacketDispatcher.dispatch(packet);
 
-  ESAT_EPSACKEPSSubsystem.saveSecondaryHeader(packet);
+
 
   if (telecommandPacketDispatcher.dispatch(packet) == true)
   {
+    ESAT_EPSACKEPSSubsystem.saveSecondaryHeader(packet);
     bool ACKAvaliable = true;
     ESAT_EPSACKEPSSubsystem.makeAvaliable(ACKAvaliable);
   }

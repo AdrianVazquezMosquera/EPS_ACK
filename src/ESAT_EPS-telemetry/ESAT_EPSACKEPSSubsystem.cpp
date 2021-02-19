@@ -50,14 +50,13 @@ boolean ESAT_EPSACKEPSSubsystemClass::available()
 
 ESAT_CCSDSSecondaryHeader ESAT_EPSACKEPSSubsystemClass::saveSecondaryHeader(ESAT_CCSDSPacket &packet)
 {
-  ESAT_CCSDSSecondaryHeader datum = packet.readSecondaryHeader();
-  return datum;
+  return datum = packet.readSecondaryHeader();
 }
 
 boolean ESAT_EPSACKEPSSubsystemClass::handlerIsCompatibleWithPacket(ESAT_CCSDSTelecommandPacketHandler &handler,
-                                                                    ESAT_CCSDSSecondaryHeader secondaryHeader)
+                                                                    ESAT_CCSDSSecondaryHeader datum)
 {
-  if (handler.packetIdentifier() == secondaryHeader.packetIdentifier)
+  if (handler.packetIdentifier() == datum.packetIdentifier) 
   {
     return true;
   }
@@ -78,6 +77,7 @@ boolean ESAT_EPSACKEPSSubsystemClass::fillUserData(ESAT_CCSDSPacket &packet)
   packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSweepModeTelecommand, datum));
   packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSwitch3V3LineTelecommand, datum));
   packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSwitch5VLineTelecommand, datum));
+
   return true;
 }
 
