@@ -50,12 +50,13 @@ class ESAT_EPSACKEPSSubsystemClass: public ESAT_CCSDSTelemetryPacketContents
     boolean fillUserData(ESAT_CCSDSPacket& packet);
 
 
-    boolean handlerIsCompatibleWithPacket(ESAT_CCSDSTelecommandPacketHandler& handler,
+    boolean handlerIsCompatibleWithPacket(byte packetIdentifier,
                                           ESAT_CCSDSSecondaryHeader secondaryHeader);
 
 
     ESAT_CCSDSSecondaryHeader saveSecondaryHeader(ESAT_CCSDSPacket& packet);
     ESAT_CCSDSSecondaryHeader datum;
+    int i;
 
 };
 

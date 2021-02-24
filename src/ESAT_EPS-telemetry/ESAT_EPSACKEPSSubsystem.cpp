@@ -30,7 +30,6 @@
 #include "ESAT_EPS-telecommands/ESAT_EPSEnableTelemetryTelecommand.h"
 #include "ESAT_EPS-telecommands/ESAT_EPSFixedModeTelecommand.h"
 
-
 boolean ESAT_EPSACKEPSSubsystemClass::makeAvaliable(bool isAvaliable)
 {
   return activated = isAvaliable;
@@ -53,10 +52,10 @@ ESAT_CCSDSSecondaryHeader ESAT_EPSACKEPSSubsystemClass::saveSecondaryHeader(ESAT
   return datum = packet.readSecondaryHeader();
 }
 
-boolean ESAT_EPSACKEPSSubsystemClass::handlerIsCompatibleWithPacket(ESAT_CCSDSTelecommandPacketHandler &handler,
+boolean ESAT_EPSACKEPSSubsystemClass::handlerIsCompatibleWithPacket(byte packetIdentifier,
                                                                     ESAT_CCSDSSecondaryHeader datum)
 {
-  if (handler.packetIdentifier() == datum.packetIdentifier) 
+  if (packetIdentifier == datum.packetIdentifier)
   {
     return true;
   }
@@ -68,15 +67,23 @@ boolean ESAT_EPSACKEPSSubsystemClass::handlerIsCompatibleWithPacket(ESAT_CCSDSTe
 
 boolean ESAT_EPSACKEPSSubsystemClass::fillUserData(ESAT_CCSDSPacket &packet)
 {
-  // We read some error flags and we must reset them after use.
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSDisableTelemetryTelecommand, datum));
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSEnableTelemetryTelecommand, datum));
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSFixedModeTelecommand, datum));
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSMaximumPowerPointTrackingModeTelecommand, datum));
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSetTimeTelecommand, datum));
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSweepModeTelecommand, datum));
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSwitch3V3LineTelecommand, datum));
-  packet.writeBoolean(handlerIsCompatibleWithPacket(ESAT_EPSSwitch5VLineTelecommand, datum));
+
+  byte handlers[] = {ESAT_EPSDisableTelemetryTelecommand.packetIdentifier(),
+                     ESAT_EPSEnableTelemetryTelecommand.packetIdentifier(),
+                     ESAT_EPSFixedModeTelecommand.packetIdentifier(),
+                     ESAT_EPSMaximumPowerPointTrackingModeTelecommand.packetIdentifier(),
+                     ESAT_EPSSetTimeTelecommand.packetIdentifier(),
+                     ESAT_EPSSweepModeTelecommand.packetIdentifier(),
+                     ESAT_EPSSwitch3V3LineTelecommand.packetIdentifier(),
+                     ESAT_EPSSwitch5VLineTelecommand.packetIdentifier()};
+
+  for (int i = 0; i < 8; i++)
+  {
+    if (handlerIsCompatibleWithPacket(handlers[i], datum))
+    {
+      packet.writeByte(handlers[i]);
+    }
+  }
 
   return true;
 }
