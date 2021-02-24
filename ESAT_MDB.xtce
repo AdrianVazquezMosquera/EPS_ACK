@@ -421,8 +421,14 @@
 				<xtce:UnitSet/>
 				<xtce:IntegerDataEncoding bitOrder="mostSignificantBitFirst" encoding="unsigned" sizeInBits="8"/>
 				<xtce:EnumerationList>
-					<xtce:Enumeration value="0" label="NOT_RECEIVED"/>
-					<xtce:Enumeration value="1" label="RECEIVED"/>
+					<xtce:Enumeration value="49" label="DISABLE_TELEMETRY"/>
+					<xtce:Enumeration value="48" label="ENABLE_TELEMETRY"/>
+					<xtce:Enumeration value="34" label="FIXED_MODE"/>
+					<xtce:Enumeration value="32" label="MPPT_MODE"/>
+					<xtce:Enumeration value="00" label="SET_TIME"/>
+					<xtce:Enumeration value="33" label="SWEEP_MODE"/>
+					<xtce:Enumeration value="16" label="3V3_SWITCH"/>
+					<xtce:Enumeration value="17" label="5V_SWITCH"/>
 				</xtce:EnumerationList>
 			</xtce:EnumeratedParameterType>
 			
@@ -586,14 +592,7 @@
 			<xtce:Parameter name="EPS_BM_CELL_OVER_VOLTAGE_RECOVERY" parameterTypeRef="2BYTE_UNSIGNED_Data_Type"/>
 			<xtce:Parameter name="EPS_BM_CHEMICAL_ID" parameterTypeRef="2BYTE_UNSIGNED_Data_Type"/>
 			<xtce:Parameter name="EPS_BM_FIRMWARE_VERSION" parameterTypeRef="EPS_BM_FIRMWARE_Data_Type"/>
-			<xtce:Parameter name="EPS_ACK_DISABLE_TELEMETRY_TELECOMMAND" parameterTypeRef="1BIT_ACK_Data_Type"/>
-			<xtce:Parameter name="EPS_ACK_ENABLE_TELEMETRY_TELECOMMAND" parameterTypeRef="1BIT_ACK_Data_Type"/>
-			<xtce:Parameter name="EPS_ACK_FIXED_MODE_TELECOMMAND" parameterTypeRef="1BIT_ACK_Data_Type"/>
-			<xtce:Parameter name="EPS_ACK_MPPT_MODE_TELECOMMAND" parameterTypeRef="1BIT_ACK_Data_Type"/>
-			<xtce:Parameter name="EPS_ACK_SET_TIME_TELECOMMAND" parameterTypeRef="1BIT_ACK_Data_Type"/>
-			<xtce:Parameter name="EPS_ACK_SWEEP_MODE_TELECOMMAND" parameterTypeRef="1BIT_ACK_Data_Type"/>
-			<xtce:Parameter name="EPS_ACK_SWITCH_3V3_LINE_TELECOMMAND" parameterTypeRef="1BIT_ACK_Data_Type"/>
-			<xtce:Parameter name="EPS_ACK_SWITCH_5V_LINE_TELECOMMAND" parameterTypeRef="1BIT_ACK_Data_Type"/>
+			<xtce:Parameter name="EPS_ACK_STATUS" parameterTypeRef="1BIT_ACK_Data_Type"/>
 			<xtce:Parameter name="OBC_STORE_TELEMETRY" parameterTypeRef="1BYTE_STATUS_Data_Type"/>
 			<xtce:Parameter name="OBC_TELEMETRY_STORAGE_ERROR" parameterTypeRef="1BYTE_STATUS_Data_Type"/>
 			<xtce:Parameter name="OBC_CLOCK_ERROR" parameterTypeRef="1BYTE_STATUS_Data_Type"/>
@@ -1108,14 +1107,7 @@
 				
                                 <xtce:SequenceContainer name="EPS_ACK_Packet" shortDescription="ESAT EPS ACK telecommand acknowledgement system">
 					<xtce:EntryList>
-						<xtce:ParameterRefEntry parameterRef="EPS_ACK_DISABLE_TELEMETRY_TELECOMMAND"/>
-						<xtce:ParameterRefEntry parameterRef="EPS_ACK_ENABLE_TELEMETRY_TELECOMMAND"/>
-						<xtce:ParameterRefEntry parameterRef="EPS_ACK_FIXED_MODE_TELECOMMAND"/>
-						<xtce:ParameterRefEntry parameterRef="EPS_ACK_MPPT_MODE_TELECOMMAND"/>
-						<xtce:ParameterRefEntry parameterRef="EPS_ACK_SET_TIME_TELECOMMAND"/>
-						<xtce:ParameterRefEntry parameterRef="EPS_ACK_SWEEP_MODE_TELECOMMAND"/>
-						<xtce:ParameterRefEntry parameterRef="EPS_ACK_SWITCH_3V3_LINE_TELECOMMAND"/>
-						<xtce:ParameterRefEntry parameterRef="EPS_ACK_SWITCH_5V_LINE_TELECOMMAND"/>
+						<xtce:ParameterRefEntry parameterRef="EPS_ACK_STATUS"/>
 					</xtce:EntryList>
 					<xtce:BaseContainer containerRef="CCSDS_TM_Packet_Header">
 						<xtce:RestrictionCriteria>
@@ -3232,6 +3224,11 @@
 		</xtce:MetaCommandSet>
 	</xtce:CommandMetaData>
 </xtce:SpaceSystem>
+
+
+
+
+
 
 
 
