@@ -95,7 +95,7 @@ class ESAT_EPSClass
     // - Update the brightness of the heartbeat LED.
     void update();
 
-    //TEMPORAL
+    // Deactivate the ACK recorder with each cycle
     void disableACK();
  
 

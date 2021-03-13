@@ -302,7 +302,7 @@ void ESAT_EPSClass::update()
   updateLEDBrightness();
 }
 
-//TEMPORAL
+
 void ESAT_EPSClass::disableACK()
 {
   bool ACKAvaliable = false;
